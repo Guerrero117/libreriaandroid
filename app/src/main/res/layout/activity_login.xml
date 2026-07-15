@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F0E6"
+    tools:context=".LoginActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="#5D4037"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintWidth_percent="0.88"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_agenda"
+                app:tint="#5D4037"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SmartLib"
+                android:textAlignment="center"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#3E2723"
+                android:letterSpacing="0.05"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tu Biblioteca Virtual"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textColor="#795548"
+                android:layout_marginBottom="32dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconDrawable="@android:drawable/ic_menu_myplaces"
+                app:startIconTint="#795548"
+                app:boxStrokeColor="#5D4037"
+                app:hintTextColor="#5D4037"
+                android:hint="Usuario">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ctUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    android:textColor="#3E2723" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                app:startIconTint="#795548"
+                app:boxStrokeColor="#5D4037"
+                app:hintTextColor="#5D4037"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#5D4037"
+                android:hint="Contraseña">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ctContraseña"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    android:textColor="#3E2723" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAcceder"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="INICIAR SESIÓN"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#5D4037"
+                android:textColor="#FFFFFF"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIrARegistro"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="¿Aún no tienes cuenta? Regístrate"
+                android:textColor="#5D4037"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
