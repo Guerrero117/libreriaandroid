@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.example.prueba.wear-debug-60:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.prueba.wear-main-62:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.prueba.wear-debug-60:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.prueba.wear-main-62:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.prueba.wear-debug-60:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.prueba.wear-main-62:/mipmap-anydpi-v26/ic_launcher.xml"
+    }
+]

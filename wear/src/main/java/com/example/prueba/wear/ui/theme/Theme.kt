@@ -4,25 +4,30 @@ import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 
-private val SmartLibColorPalette = Colors(
-    primary = AccentBlue,
-    primaryVariant = AccentBlueDark,
-    secondary = AccentGreen,
-    secondaryVariant = AccentGreen,
-    background = OledBlack,
-    surface = SurfaceDark,
-    error = AccentRed,
-    onPrimary = OledBlack,
-    onSecondary = OledBlack,
-    onBackground = TextPrimary,
-    onSurface = TextPrimary,
-    onError = OledBlack
+private val SmartLibColors = Colors(
+    primary = CafePrincipal,
+    primaryVariant = CafeOscuro,
+    secondary = CafeClaro,
+    secondaryVariant = CafePrincipal,
+
+    background = Fondo,
+    surface = Blanco,
+
+    error = Rojo,
+
+    onPrimary = Blanco,
+    onSecondary = Blanco,
+    onBackground = TextoPrincipal,
+    onSurface = TextoPrincipal,
+    onError = Blanco
 )
 
 @Composable
-fun SmartLibWearTheme(content: @Composable () -> Unit) {
+fun SmartLibWearTheme(
+    content: @Composable () -> Unit
+) {
     MaterialTheme(
-        colors = SmartLibColorPalette,
+        colors = SmartLibColors,
         content = content
     )
 }

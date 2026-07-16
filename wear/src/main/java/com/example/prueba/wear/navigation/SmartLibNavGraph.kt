@@ -5,39 +5,91 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.example.prueba.wear.screens.BuscarLibroScreen
-import com.example.prueba.wear.screens.DetalleQrScreen
+import com.example.prueba.wear.screens.FavoritosScreen
 import com.example.prueba.wear.screens.HubScreen
-import com.example.prueba.wear.screens.PrestamosScreen
+import com.example.prueba.wear.screens.PerfilScreen
+import com.example.prueba.wear.screens.DetalleLibroScreen
 
 object Rutas {
+
     const val HUB = "hub"
-    const val PRESTAMOS = "prestamos"
+
     const val BUSCAR = "buscar"
-    const val DETALLE = "detalle/{idLibro}"
+
+    const val FAVORITOS = "favoritos"
+
+    const val PERFIL = "perfil"
+
+    const val DETALLE = "detalle/{id}"
+
 }
 
 @Composable
 fun SmartLibNavGraph() {
+
     val navController = rememberSwipeDismissableNavController()
 
     SwipeDismissableNavHost(
         navController = navController,
         startDestination = Rutas.HUB
     ) {
+
         composable(Rutas.HUB) {
-            HubScreen(onNavegar = { ruta -> navController.navigate(ruta) })
+
+            HubScreen(
+
+                onBuscar = {
+                    navController.navigate(Rutas.BUSCAR)
+                },
+
+                onFavoritos = {
+                    navController.navigate(Rutas.FAVORITOS)
+                },
+
+                onPerfil = {
+                    navController.navigate(Rutas.PERFIL)
+                }
+
+            )
+
         }
-        composable(Rutas.PRESTAMOS) {
-            PrestamosScreen()
-        }
+
         composable(Rutas.BUSCAR) {
-            BuscarLibroScreen(onVerDetalle = { idLibro ->
-                navController.navigate("detalle/$idLibro")
-            })
+
+            BuscarLibroScreen(
+
+                onLibroSeleccionado = { id ->
+
+                    navController.navigate("detalle/$id")
+
+                }
+
+            )
+
         }
-        composable(Rutas.DETALLE) { backStackEntry ->
-            val idLibro = backStackEntry.arguments?.getString("idLibro")?.toIntOrNull() ?: -1
-            DetalleQrScreen(idLibro = idLibro)
+
+        composable(Rutas.FAVORITOS) {
+
+            FavoritosScreen()
+
         }
+
+        composable(Rutas.PERFIL) {
+
+            PerfilScreen()
+
+        }
+
+        composable(Rutas.DETALLE) { backStack ->
+
+            val id = backStack.arguments
+                ?.getString("id")
+                ?.toIntOrNull() ?: 0
+
+            DetalleLibroScreen(id)
+
+        }
+
     }
+
 }

@@ -2,13 +2,30 @@ package com.example.prueba.wear.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Paleta oscura optimizada para pantallas OLED (negro puro para ahorrar batería)
-val OledBlack = Color(0xFF000000)
-val SurfaceDark = Color(0xFF0D1117)
-val AccentBlue = Color(0xFF4DB6FF)
-val AccentBlueDark = Color(0xFF1B5E8C)
-val AccentGreen = Color(0xFF4CAF50)
-val AccentRed = Color(0xFFEF5350)
-val AccentOrange = Color(0xFFFFA726)
-val TextPrimary = Color(0xFFF5F5F5)
-val TextSecondary = Color(0xFF9AA5B1)
+// Colores principales (iguales al Smartphone)
+
+val Fondo = Color(0xFFF5F0E6)
+
+val CafePrincipal = Color(0xFF5D4037)
+
+val CafeOscuro = Color(0xFF3E2723)
+
+val CafeClaro = Color(0xFF795548)
+
+val Blanco = Color(0xFFFFFFFF)
+
+val GrisClaro = Color(0xFFD7CCC8)
+
+// Estados
+
+val Verde = Color(0xFF4CAF50)
+
+val Rojo = Color(0xFFD32F2F)
+
+val Azul = Color(0xFF6D4C41)
+
+// Texto
+
+val TextoPrincipal = CafeOscuro
+
+val TextoSecundario = CafeClaro

@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
@@ -24,128 +26,150 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.material.Vignette
-import androidx.wear.compose.material.VignettePosition
-import com.example.prueba.wear.data.LibroUi
-import com.example.prueba.wear.data.MockData
-import com.example.prueba.wear.ui.theme.AccentGreen
-import com.example.prueba.wear.ui.theme.AccentRed
-import com.example.prueba.wear.ui.theme.TextSecondary
+
+data class LibroWear(
+    val id: Int,
+    val titulo: String,
+    val autor: String,
+    val disponible: Boolean
+)
 
 @Composable
-fun BuscarLibroScreen(onVerDetalle: (Int) -> Unit) {
+fun BuscarLibroScreen(
+    onLibroSeleccionado: (Int) -> Unit
+) {
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    // Datos de ejemplo (después los cambiaremos por Google Books)
+    val libros = listOf(
+        LibroWear(1, "Harry Potter", "J.K. Rowling", true),
+        LibroWear(2, "El Principito", "Antoine de Saint-Exupéry", true),
+        LibroWear(3, "1984", "George Orwell", false),
+        LibroWear(4, "Don Quijote", "Miguel de Cervantes", true)
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
 
         TimeText()
 
-        Vignette(
-            vignettePosition = VignettePosition.TopAndBottom
-        )
-
         ScalingLazyColumn(
+
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(
-                top = 24.dp,
-                bottom = 24.dp,
-                start = 6.dp,
-                end = 6.dp
-            ),
+
+            horizontalAlignment = Alignment.CenterHorizontally,
+
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+
+            contentPadding = PaddingValues(
+                top = 22.dp,
+                bottom = 22.dp,
+                start = 8.dp,
+                end = 8.dp
+            )
+
         ) {
 
             item {
+
                 Text(
                     text = "Buscar Libro",
                     style = MaterialTheme.typography.title3,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onBackground
+                    color = Color(0xFF5D4037)
                 )
+
             }
 
             item {
+
                 Chip(
-                    onClick = { },
-                    label = {
-                        Text("Buscar por voz")
+
+                    onClick = {
+                        // Más adelante activaremos búsqueda por voz
                     },
+
+                    modifier = Modifier.fillMaxWidth(),
+
+                    colors = ChipDefaults.primaryChipColors(
+                        backgroundColor = Color.White
+                    ),
+
                     icon = {
+
                         Icon(
                             imageVector = Icons.Default.Mic,
-                            contentDescription = "Buscar por voz",
-                            modifier = Modifier.size(20.dp)
+                            contentDescription = null,
+                            tint = Color(0xFF5D4037)
                         )
+
                     },
-                    colors = ChipDefaults.primaryChipColors(),
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
 
-            item {
-                Text(
-                    text = "Resultados recientes",
-                    style = MaterialTheme.typography.caption2,
-                    color = TextSecondary
-                )
-            }
+                    label = {
 
-            items(MockData.resultadosBusqueda) { libro ->
-                LibroResultadoCard(
-                    libro = libro,
-                    onClick = {
-                        onVerDetalle(libro.idLibro)
+                        Text(
+                            "Buscar por voz",
+                            color = Color(0xFF3E2723)
+                        )
+
                     }
+
                 )
+
             }
+
+            items(libros) { libro ->
+
+                Card(
+
+                    onClick = {
+                        onLibroSeleccionado(libro.id)
+                    },
+
+                    modifier = Modifier.fillMaxWidth()
+
+                ) {
+
+                    Column(
+                        modifier = Modifier.padding(10.dp)
+                    ) {
+
+                        Text(
+                            text = libro.titulo,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF3E2723)
+                        )
+
+                        Text(
+                            text = libro.autor,
+                            color = Color(0xFF795548),
+                            style = MaterialTheme.typography.caption2
+                        )
+
+                        Text(
+
+                            text =
+                                if (libro.disponible)
+                                    "Disponible"
+                                else
+                                    "No disponible",
+
+                            color =
+                                if (libro.disponible)
+                                    Color(0xFF4CAF50)
+                                else
+                                    Color.Red
+
+                        )
+
+                    }
+
+                }
+
+            }
+
         }
+
     }
-}
 
-@Composable
-private fun LibroResultadoCard(
-    libro: LibroUi,
-    onClick: () -> Unit
-) {
-
-    val disponible = libro.stock > 0
-
-    val colorStock =
-        if (disponible) AccentGreen
-        else AccentRed
-
-    Card(
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-
-        Column(
-            modifier = Modifier.padding(8.dp)
-        ) {
-
-            Text(
-                text = libro.titulo,
-                style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 1
-            )
-
-            Text(
-                text = libro.autor,
-                style = MaterialTheme.typography.caption2,
-                color = TextSecondary,
-                maxLines = 1
-            )
-
-            Text(
-                text =
-                    if (disponible)
-                        "Disponible (${libro.stock})"
-                    else
-                        "Sin stock",
-                style = MaterialTheme.typography.caption1,
-                color = colorStock
-            )
-        }
-    }
 }

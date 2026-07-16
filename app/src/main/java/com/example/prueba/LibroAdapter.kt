@@ -26,12 +26,16 @@ class LibroAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         val libro = listaLibros[position]
+
         holder.titulo.text = libro.titulo
         holder.autor.text = libro.autor
 
-        Glide.with(holder.portada.context)
+        Glide.with(holder.itemView.context)
             .load(libro.portadaUrl.replace("http:", "https:"))
+            .placeholder(android.R.drawable.ic_menu_gallery)
+            .error(android.R.drawable.ic_menu_report_image)
             .into(holder.portada)
 
         if (FavoritosManager.listaFavoritos.contains(libro)) {
@@ -41,8 +45,13 @@ class LibroAdapter(
         }
 
         holder.btnFavorito.setOnClickListener {
+
             FavoritosManager.agregar(libro)
-            holder.btnFavorito.setImageResource(android.R.drawable.btn_star_big_on)
+
+            holder.btnFavorito.setImageResource(
+                android.R.drawable.btn_star_big_on
+            )
+
             onFavoritoClick(libro)
         }
     }

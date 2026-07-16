@@ -2,95 +2,137 @@ package com.example.prueba.wear.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Book
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
-import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.material.Vignette
-import androidx.wear.compose.material.VignettePosition
-import com.example.prueba.wear.ui.theme.AccentBlue
-import com.example.prueba.wear.ui.theme.AccentGreen
-import com.example.prueba.wear.ui.theme.TextSecondary
+import androidx.wear.compose.material.*
 
-data class HubOpcion(
+data class MenuWear(
     val titulo: String,
-    val icono: ImageVector,
-    val colorAcento: androidx.compose.ui.graphics.Color,
-    val ruta: String
-)
-
-private val opciones = listOf(
-    HubOpcion("Mis Préstamos", Icons.Filled.Menu, AccentGreen, "prestamos"),
-    HubOpcion("Buscar Libro", Icons.Filled.Search, AccentBlue, "buscar")
+    val icono: androidx.compose.ui.graphics.vector.ImageVector
 )
 
 @Composable
-fun HubScreen(onNavegar: (String) -> Unit) {
-    Box(modifier = Modifier.fillMaxSize()) {
+fun HubScreen(
+    onBuscar: () -> Unit,
+    onFavoritos: () -> Unit,
+    onPerfil: () -> Unit
+) {
+
+    val opciones = listOf(
+        MenuWear("Buscar Libros", Icons.Default.Book),
+        MenuWear("Favoritos", Icons.Default.Favorite),
+        MenuWear("Mi Perfil", Icons.Default.Person)
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+
         TimeText()
-        Vignette(vignettePosition = VignettePosition.TopAndBottom)
 
         ScalingLazyColumn(
+
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(top = 24.dp, bottom = 24.dp, start = 8.dp, end = 8.dp),
+
+            horizontalAlignment = Alignment.CenterHorizontally,
+
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+
+            contentPadding = PaddingValues(
+                top = 22.dp,
+                bottom = 22.dp,
+                start = 8.dp,
+                end = 8.dp
+            )
+
         ) {
+
             item {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = "SmartLib",
-                        style = MaterialTheme.typography.title3,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colors.onBackground
-                    )
-                    Text(
-                        text = "Hub de Consultas",
-                        style = MaterialTheme.typography.caption2,
-                        color = TextSecondary
-                    )
-                }
+
+                Text(
+                    text = "SMARTLIB",
+                    style = MaterialTheme.typography.title2,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF5D4037)
+                )
+
+            }
+
+            item {
+
+                Text(
+                    text = "Biblioteca Virtual",
+                    style = MaterialTheme.typography.caption2,
+                    color = Color(0xFF795548)
+                )
+
             }
 
             items(opciones) { opcion ->
+
                 Chip(
-                    onClick = { onNavegar(opcion.ruta) },
-                    label = {
-                        Text(text = opcion.titulo, fontWeight = FontWeight.SemiBold)
+
+                    modifier = Modifier.fillMaxWidth(),
+
+                    onClick = {
+
+                        when (opcion.titulo) {
+
+                            "Buscar Libros" -> onBuscar()
+
+                            "Favoritos" -> onFavoritos()
+
+                            "Mi Perfil" -> onPerfil()
+
+                        }
+
                     },
+
+                    colors = ChipDefaults.primaryChipColors(
+                        backgroundColor = Color.White
+                    ),
+
                     icon = {
+
                         Icon(
                             imageVector = opcion.icono,
                             contentDescription = opcion.titulo,
-                            modifier = Modifier.size(20.dp),
-                            tint = opcion.colorAcento
+                            tint = Color(0xFF5D4037),
+                            modifier = Modifier.size(22.dp)
                         )
+
                     },
-                    colors = ChipDefaults.chipColors(
-                        backgroundColor = MaterialTheme.colors.surface
-                    ),
-                    modifier = Modifier.fillMaxWidth()
+
+                    label = {
+
+                        Text(
+                            text = opcion.titulo,
+                            color = Color(0xFF3E2723),
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
                 )
+
             }
+
         }
+
     }
+
 }
